@@ -201,7 +201,7 @@ class Key {
     if(k.check(FlxKey.ENTER)) {
       return true;
     }
-    if(k.check(FlxKey.Z)) {
+    if(k.check(FlxKey.A)) {
       return true;
     }
     return false;

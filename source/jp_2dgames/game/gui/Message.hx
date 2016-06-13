@@ -95,7 +95,7 @@ class MessageText extends FlxText {
     super(X, Y, Width);
     setFormat(Reg.PATH_FONT, Reg.FONT_SIZE);
     // アウトラインをつける
-    setBorderStyle(FlxText.BORDER_OUTLINE, FlxColor.BLACK, 2);
+    setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 2);
     color = FlxColor.WHITE;
     // じわじわ表示
     alpha = 0;
@@ -105,10 +105,10 @@ class MessageText extends FlxText {
     x += 64;
     FlxTween.tween(this, {x:xnext}, 0.3, {ease:FlxEase.expoOut});
     // 消滅判定
-    new FlxTimer(5, function(t:FlxTimer) {
+    new FlxTimer().start(5, function(t:FlxTimer) {
       // じわじわ消す
       FlxTween.tween(this, {_baseY:-8}, 0.3, {ease:FlxEase.sineOut});
-      FlxTween.tween(this, {alpha:0}, 0.3, {ease:FlxEase.sineOut, complete:function(tween:FlxTween) {
+      FlxTween.tween(this, {alpha:0}, 0.3, {ease:FlxEase.sineOut, onComplete:function(tween:FlxTween) {
         kill();
       }});
     });
@@ -122,8 +122,9 @@ class MessageText extends FlxText {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+  {
+    super.update(elapsed);
 
     y = _baseY + _ofsY;
     _bg.y = y + 4;
@@ -233,9 +234,9 @@ class Message extends FlxGroup {
 
   private function get_ofsY() {
     var player = cast(FlxG.state, PlayState).player;
-    var y = (player.ychip) * Field.GRID_SIZE;
+    var y = (player.ychip) * 32;
 
-    if(y > POS_Y - 1 * Field.GRID_SIZE) {
+    if(y > POS_Y - 1 * 32) {
       // 上にする
       if(_bDispBottom) {
         // 下から上に変わった
@@ -245,7 +246,7 @@ class Message extends FlxGroup {
       return POS_Y2;
     }
 
-    if(y < POS_Y2 + 5 * Field.GRID_SIZE) {
+    if(y < POS_Y2 + 5 * 32) {
       // 下にする
       if(_bDispBottom == false) {
         // 上から下に変わった
@@ -266,8 +267,9 @@ class Message extends FlxGroup {
   /**
 	 * 更新
 	 **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+  {
+    super.update(elapsed);
 
     _txtOfsY *= 0.9;
     _txtOfsY2 *= 0.9;
@@ -303,7 +305,7 @@ class Message extends FlxGroup {
   /**
 	 * メッセージを末尾に追加
 	 **/
-  private function _push(msg:String, color:Int) {
+  private function _push(msg:String, color:Int,elapsed:Float=1.0) {
     var text = new MessageText(POS_X + MSG_POS_X, 0, WIDTH);
     text.text = msg;
     text.color = color;
@@ -316,7 +318,7 @@ class Message extends FlxGroup {
     // 座標を更新
     _updateTextPosition();
     for(txt in _msgList) {
-      txt.update();
+      txt.update(elapsed);
     }
     this.add(text.bg);
     this.add(text);

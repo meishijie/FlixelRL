@@ -5,7 +5,7 @@ import flash.geom.Point;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 /**
  * 状態
@@ -47,7 +47,7 @@ class ParticleRecovery extends FlxSprite {
     super();
 
     makeGraphic(FONT_SIZE * 8, FONT_SIZE, FlxColor.TRANSPARENT, true);
-    color = FlxColor.CHARTREUSE;
+    color = FlxColor.ORANGE;
 
     // 非表示にしておく
     kill();
@@ -79,8 +79,8 @@ class ParticleRecovery extends FlxSprite {
       pixels.copyPixels(bmp.bitmap, rect, pt);
     }
     dirty = true;
-    updateFrameData();
-
+    //updateFrameData();
+	updateFramePixels();
     // フォントを中央揃えする
     x = X - (FONT_SIZE * digit / 2);
 
@@ -98,8 +98,9 @@ class ParticleRecovery extends FlxSprite {
 	 * コンストラクタ
 	 **/
 
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     switch(_state) {
       case State.Main:

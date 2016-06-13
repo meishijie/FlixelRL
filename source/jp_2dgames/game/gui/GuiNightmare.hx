@@ -85,14 +85,15 @@ class GuiNightmare extends FlxSpriteGroup {
   /**
    * 更新
    **/
-  override public function update():Void {
-
+ override public function update(elapsed:Float):Void
+	{
+		
     if(NightmareMgr.isValid() == false) {
       // ナイトメアが無効なときは何も表示しない
       visible = false;
     }
 
-    super.update();
+   super.update(elapsed);
 
     setTurn(Global.getTurnLimitNightmare());
 
@@ -112,7 +113,7 @@ class GuiNightmare extends FlxSpriteGroup {
     if(_turnLimit < 10) {
       if(_tBlink%32 < 16) {
         // 文字を赤くする
-        _txtTurn.color = FlxColor.CRIMSON;
+        _txtTurn.color = FlxColor.RED;
       }
     }
 

@@ -45,8 +45,9 @@ class StatusBar extends FlxBar {
    * 更新
    **/
 
-  override function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     if(_timer > 0) {
       _timer *= DECAY;

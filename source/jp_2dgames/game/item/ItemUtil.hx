@@ -5,16 +5,16 @@ import jp_2dgames.lib.Snd;
 import jp_2dgames.game.gui.Inventory;
 import jp_2dgames.game.particle.ParticleSmoke;
 import jp_2dgames.game.actor.Enemy;
-import flixel.util.FlxPoint;
+import flixel.math.FlxPoint;
 import jp_2dgames.game.actor.Params.ParamsUtil;
 import jp_2dgames.game.actor.BadStatusUtil.BadStatus;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 import flixel.FlxG;
 import flixel.util.FlxColor;
 import jp_2dgames.game.gui.Message;
 import jp_2dgames.game.actor.Actor;
 import jp_2dgames.game.actor.Player;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 import jp_2dgames.lib.CsvLoader;
 
 /**
@@ -304,10 +304,10 @@ class ItemUtil {
     switch(type) {
       case IType.Weapon, IType.Armor, IType.Ring, IType.Food, IType.Potion, IType.Scroll, IType.Wand, IType.Orb:
         var list = getCategoryUnlockList(type);
-        return list[FlxRandom.intRanged(0, list.length-1)];
+        return list[FlxG.random.int(0, list.length-1)];
 
       case IType.Money:
-        return FlxRandom.intRanged(100, 1000);
+        return FlxG.random.int(100, 1000);
       default:
         trace('Warning: invalid type ${type}');
         return 0;
@@ -326,7 +326,7 @@ class ItemUtil {
 //      IType.Money,
       IType.Food
     ];
-    return tbl[FlxRandom.intRanged(0, tbl.length-1)];
+    return tbl[FlxG.random.int(0, tbl.length-1)];
   }
 
   // デバッグ用のアイテム種別を取得する
@@ -575,7 +575,7 @@ class ItemUtil {
         var cnt = 1000; // 試行回数
         for(i in 0...cnt) {
           var pt:FlxPoint = null;
-          if(FlxRandom.chanceRoll()) {
+          if(FlxG.random.bool()) {
             // 部屋から探す
             pt = Field.searchRandom(Field.NONE);
           }

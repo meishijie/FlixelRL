@@ -8,7 +8,7 @@ import jp_2dgames.game.particle.EffectCloud;
 import jp_2dgames.game.util.Pad;
 import jp_2dgames.game.item.ItemConst;
 import jp_2dgames.game.actor.Npc;
-import flixel.addons.effects.FlxWaveSprite;
+//import flixel.addons.effects.FlxWaveSprite;
 import jp_2dgames.game.util.Key;
 import jp_2dgames.game.gimmick.Door;
 import jp_2dgames.game.gimmick.Pit;
@@ -20,10 +20,10 @@ import jp_2dgames.lib.TextUtil;
 import flixel.util.FlxColor;
 import jp_2dgames.lib.Snd;
 import jp_2dgames.game.particle.ParticleSmoke;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 import jp_2dgames.game.particle.ParticleMessage;
 import jp_2dgames.game.particle.ParticleRecovery;
-import flixel.util.FlxPoint;
+import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import jp_2dgames.game.particle.Particle;
@@ -38,14 +38,16 @@ import jp_2dgames.game.actor.Player;
 import jp_2dgames.game.item.ItemUtil.IType;
 import jp_2dgames.game.item.ItemData.ItemExtraParam;
 import jp_2dgames.game.item.ItemData;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import jp_2dgames.lib.Layer2D;
 import flixel.FlxSprite;
 import jp_2dgames.lib.TmxLoader;
 import flixel.FlxG;
 import flixel.FlxState;
 import jp_2dgames.game.save.Save;
+import jp_2dgames.game.Field;
 
+import jp_2dgames.game.gui.GuiKey;
 /**
  * 状態
  **/
@@ -92,7 +94,7 @@ class PlayState extends FlxState {
   // 背景
   private var _back:FlxSprite;
   // 背景エフェクト
-  private var _wave:FlxWaveSprite = null;
+  //private var _wave:FlxWaveSprite = null;
 
   // フロア開始演出用テキスト
   private var _txtFloor:FlxText;
@@ -120,12 +122,15 @@ class PlayState extends FlxState {
   // デバッグ用敵
   private var _debugEnemy:Enemy;
 
+  //屏幕按键
+  private var _guiKey:GuiKey;
   /**
 	 * 生成
 	 */
   override public function create():Void {
     super.create();
-
+	
+	
     if(Global.isLoadGame()) {
       // セーブデータをロード
       // グローバルデータのみ
@@ -168,7 +173,7 @@ class PlayState extends FlxState {
     // フロア開始演出スタート
     _txtFloor = new FlxText(FlxG.width/3, FlxG.height/2.5, 256, "", 48);
     _txtFloor.text = 'Floor ${Global.getFloor()}';
-    _txtFloor.setBorderStyle(FlxText.BORDER_OUTLINE, FlxColor.OLIVE, 3);
+    _txtFloor.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.GREEN, 3);
     _txtFloor.color = FlxColor.WHITE;
     FlxTween.tween(_txtFloor, {x:_txtFloor.x-32}, 1, {ease:FlxEase.expoOut});
     this.add(_txtFloor);
@@ -187,10 +192,12 @@ class PlayState extends FlxState {
         nBgm = floor;
       default:
         // それ以外はランダム
-        nBgm = FlxRandom.intRanged(1, 16);
+        nBgm = FlxG.random.int(1, 16);
     }
     var strBgm = TextUtil.fillZero(nBgm, 3);
     Snd.playMusic(strBgm);
+	_guiKey = new GuiKey();
+	add(_guiKey);
   }
 
   private function _floorStart():Void {
@@ -472,13 +479,11 @@ class PlayState extends FlxState {
 
     // 背景画像を作成
     Field.createBackground(_lField, _back);
-    if(_wave == null) {
-      _wave = new FlxWaveSprite(_back, WaveMode.ALL, 0, -1, 0);
-      this.add(_wave);
-      Field.setWaveSprite(_wave);
-    }
-
-    // コリジョンレイヤーを登録
+    //if(_wave == null) {
+     // _wave = new FlxWaveSprite(_back, WaveMode.ALL, 0, -1, 0);
+      this.add(_back);
+      Field.setWaveSprite(_back);
+    //}
     Field.setCollisionLayer(_lField);
   }
 
@@ -511,10 +516,11 @@ class PlayState extends FlxState {
   /**
    * 更新
    */
-  override public function update():Void {
-    super.update();
+  override public function update(elapsed:Float):Void {
+    super.update(elapsed);
 
     // ゲームパッド更新
+	
     Pad.update();
 
     switch(_state) {
@@ -701,10 +707,10 @@ class PlayState extends FlxState {
             DropItem.addMoney(i, j, itemid);
           }
           else {
-            params.condition = FlxRandom.intRanged(5, 15);
+            params.condition = FlxG.random.int(5, 15);
             switch(itemtype) {
               case IType.Weapon, IType.Armor:
-                params.value = FlxRandom.intRanged(-1, 5);
+                params.value = FlxG.random.int(-1, 5);
               default:
             }
             DropItem.add(i, j, itemid, params);

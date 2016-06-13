@@ -52,8 +52,9 @@ class GuiItemDetail extends FlxSpriteGroup {
   /**
    * 更新
    **/
-  override public function update() {
-    super.update();
+override public function update(elapsed:Float):Void
+  {
+    super.update(elapsed);
   }
 
   /**

@@ -61,14 +61,10 @@ class DebugState extends FlxState {
   /**
    * 破棄
    **/
-  override public function destroy():Void {
-    super.destroy();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
   }
 
-  /**
-   * 更新
-   **/
-  override public function update():Void {
-    super.update();
-  }
+
 }

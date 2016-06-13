@@ -2,10 +2,10 @@ package jp_2dgames.game.gui;
 import jp_2dgames.game.util.MyColor;
 import jp_2dgames.game.util.DirUtil;
 import jp_2dgames.game.state.PlayState;
-import flixel.util.FlxAngle;
-import flixel.util.FlxColorUtil;
+import flixel.math.FlxAngle;
+import flixel.util.FlxColor;
 import jp_2dgames.game.actor.Enemy;
-import flixel.util.FlxPoint;
+import flixel.math.FlxPoint;
 import flixel.group.FlxSpriteGroup;
 import jp_2dgames.game.gui.Message.Msg;
 import flixel.FlxG;
@@ -138,8 +138,8 @@ class GuiStatus extends FlxGroup {
     _group.add(_txtLv);
 
     // HPバー
-    _hpBar = new FlxBar(HPBAR_X, HPBAR_Y, FlxBar.FILL_LEFT_TO_RIGHT, BAR_W, BAR_H);
-    _hpBar.createFilledBar(FlxColor.CRIMSON, FlxColor.CHARTREUSE);
+    _hpBar = new FlxBar(HPBAR_X, HPBAR_Y, FlxBarFillDirection.LEFT_TO_RIGHT, BAR_W, BAR_H);
+    _hpBar.createFilledBar(FlxColor.RED, FlxColor.RED);
     _group.add(_hpBar);
 
     // HPテキスト
@@ -203,8 +203,9 @@ class GuiStatus extends FlxGroup {
   /**
 	 * 更新
 	 **/
-  override public function update() {
-    super.update();
+override public function update(elapsed:Float):Void
+  {
+    super.update(elapsed);
 
     // フロア数
     var floor = Global.getFloor();
@@ -275,7 +276,7 @@ class GuiStatus extends FlxGroup {
         _txtHp.color = FlxColor.PINK;
         _tDanger++;
         var step = Std.int(Math.sin(FlxAngle.TO_RAD * (_tDanger%180)) * 100);
-        var color = FlxColorUtil.interpolateColor(MyColor.MESSAGE_WINDOW, FlxColor.MAROON, 100, step, 178);
+        var color = FlxColor.interpolate(MyColor.MESSAGE_WINDOW, FlxColor.BROWN, 100);
         _bgStatus.color = color;
         _bgHelp.color = color;
         Message.setWindowColor(color);

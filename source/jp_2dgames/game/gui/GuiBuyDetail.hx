@@ -2,7 +2,7 @@ package jp_2dgames.game.gui;
 import jp_2dgames.lib.Snd;
 import jp_2dgames.game.util.MyColor;
 import jp_2dgames.game.util.Key;
-import flixel.util.FlxAngle;
+import flixel.math.FlxAngle;
 import haxe.ds.ArraySort;
 import jp_2dgames.game.gui.Message.Msg;
 import jp_2dgames.game.item.ItemUtil;
@@ -230,8 +230,9 @@ class GuiBuyDetail extends FlxSpriteGroup {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+  override public function update(elapsed:Float):Void
+  {
+    super.update(elapsed);
 
     switch(_state) {
       case State.Main:
@@ -335,8 +336,8 @@ class GuiBuyDetail extends FlxSpriteGroup {
       }
       else {
         // 買えない
-        _txtList[idx].color = FlxColor.SILVER;
-        _txtPriceList[idx].color = FlxColor.SILVER;
+        _txtList[idx].color = FlxColor.BROWN;
+        _txtPriceList[idx].color = FlxColor.BROWN;
         _bgItemList[idx].color = MyColor.LISTITEM_DISABLE;
       }
       // 背景枠も更新

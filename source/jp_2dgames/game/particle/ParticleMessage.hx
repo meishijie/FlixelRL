@@ -6,7 +6,7 @@ import flash.geom.Point;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 /**
  * 状態
@@ -86,8 +86,8 @@ class ParticleMessage extends FlxSprite {
       pixels.copyPixels(bmp.bitmap, rect, pt);
     }
     dirty = true;
-    updateFrameData();
-
+    //updateFrameData();
+	updateFramePixels();
     // フォントを中央揃えする
     x = X - (FONT_SIZE * length / 2);
 
@@ -104,8 +104,9 @@ class ParticleMessage extends FlxSprite {
   /**
 	 * コンストラクタ
 	 **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     switch(_state) {
       case State.Main:

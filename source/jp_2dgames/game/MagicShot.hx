@@ -6,11 +6,12 @@ import jp_2dgames.game.actor.Enemy;
 import jp_2dgames.game.item.ItemUtil.IType;
 import jp_2dgames.game.item.ItemData;
 import flash.display.BlendMode;
-import flixel.util.FlxAngle;
-import flixel.util.FlxRandom;
+import flixel.math.FlxAngle;
+import flixel.math.FlxRandom;
 import jp_2dgames.game.actor.Actor;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
+import flixel.FlxG;
 
 private enum ShotType {
   Horming;     // ホーミング
@@ -129,7 +130,7 @@ class MagicShot extends FlxSprite {
     switch(_shotType) {
       case ShotType.Horming:
         // ランダムな速度を設定
-        var speed = FlxRandom.floatRanged(20, 200);
+        var speed =FlxG.random.float(20, 200);
         // 目標と反対側の角度を設定
         var deg = FlxAngle.angleBetween(this, _target, true);
         deg -= 180;
@@ -166,11 +167,12 @@ class MagicShot extends FlxSprite {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+ override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     // 拡縮アニメ
-    var sc = FlxRandom.floatRanged(0.4, 0.5);
+    var sc = FlxG.random.float(0.4, 0.5);
     scale.set(sc, sc);
 
     // 衝突判定

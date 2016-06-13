@@ -10,7 +10,7 @@ import haxe.ds.ArraySort;
 import jp_2dgames.lib.Snd;
 import flixel.group.FlxSpriteGroup;
 import jp_2dgames.game.item.ItemUtil;
-import flixel.util.FlxAngle;
+import flixel.math.FlxAngle;
 import jp_2dgames.game.item.DropItem;
 import jp_2dgames.game.gui.Message.Msg;
 import jp_2dgames.game.gui.UIText;
@@ -926,8 +926,9 @@ class Inventory extends FlxGroup {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+  override public function update(elapsed:Float):Void
+  {
+    super.update(elapsed);
 
     if(_state == State.Main) {
       // 通常

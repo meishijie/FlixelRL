@@ -78,7 +78,7 @@ class UnlockMgr extends FlxSpriteGroup{
     var bg = new FlxSprite(0, 0).makeGraphic(WIDTH, HEIGHT, FlxColor.BLACK);
     bg.alpha = 0.5;
     this.add(bg);
-    var color = FlxColor.SILVER;
+    var color = FlxColor.PINK;
     this.add(new FlxSprite(0, 0).makeGraphic(WIDTH, 2, color));
     this.add(new FlxSprite(WIDTH-2, 0).makeGraphic(2, HEIGHT, color));
     this.add(new FlxSprite(0, 0).makeGraphic(2, HEIGHT, color));
@@ -86,7 +86,7 @@ class UnlockMgr extends FlxSpriteGroup{
 
     _txt = new FlxText(OFS_X, OFS_Y, WIDTH);
     _txt.setFormat(Reg.PATH_FONT, Reg.FONT_SIZE_S);
-    _txt.setBorderStyle(FlxText.BORDER_OUTLINE, FlxColor.BLUE);
+    _txt.setBorderStyle( FlxTextBorderStyle.OUTLINE, FlxColor.BLUE);
     this.add(_txt);
 
     // 非表示にしておく
@@ -109,8 +109,9 @@ class UnlockMgr extends FlxSpriteGroup{
   /**
    * 更新
    **/
-  override function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     if(this.visible == false) {
       if(_queue.length > 0) {
@@ -137,15 +138,25 @@ class UnlockMgr extends FlxSpriteGroup{
     var py = POS_Y;
     this.x = FlxG.width;
     this.y = py;
-    FlxTween.tween(this, {x:px}, 1, {ease:FlxEase.expoOut, complete:function(tween:FlxTween) {
-      new FlxTimer(3, function(timer:FlxTimer) {
-        FlxTween.tween(this, {y:-48}, 0.5, {ease:FlxEase.expoIn, complete:function(tween:FlxTween) {
+	//FlxTween.tween(sprite, { x: 100, y: 200 }, 3.0, { ease: FlxEase.quadInOut, complete: myCallback });
+	
+    FlxTween.tween(this, {x:px}, 1, {ease:FlxEase.expoOut, onComplete:function(tween:FlxTween):Void {
+		
+      new FlxTimer().start(3, function(timer:FlxTimer) {
+        FlxTween.tween(this, {y:-48}, 0.5, {ease:FlxEase.quadInOut,onComplete:function(tween:FlxTween):Void {
           this.visible = false;
-        }});
+        }
+		
+		});
+		
       });
+	  
     }});
   }
 
+  private function callbackFunction(Tween:FlxTween):Void
+{
+}
   /**
    * アンロックのチェック
    **/

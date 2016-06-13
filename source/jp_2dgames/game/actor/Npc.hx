@@ -7,10 +7,10 @@ import jp_2dgames.game.item.ItemData;
 import jp_2dgames.game.item.DropItem;
 import jp_2dgames.game.gui.Inventory;
 import jp_2dgames.game.item.ItemConst;
-import flixel.util.FlxPoint;
+import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
 import jp_2dgames.game.util.DirUtil;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 /**
  * NPCクラス
@@ -46,7 +46,7 @@ class Npc extends Actor {
     var c = FlxColor.WHITE;
     switch(type) {
       case TYPE_RED:
-        c = FlxColor.SALMON;
+        c = FlxColor.ORANGE;
       case TYPE_BLUE:
         c = 0x80A0FF;
       case TYPE_WHITE:

@@ -1,8 +1,8 @@
 package jp_2dgames.game.util;
 
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 import openfl.Assets;
-
+import flixel.FlxG;
 /**
  * 名前自動生成
  **/
@@ -19,7 +19,7 @@ class NameGenerator {
   }
 
   public function get():String {
-    if(FlxRandom.chanceRoll()) {
+    if(FlxG.random.bool()) {
       return getMale();
     }
     else {
@@ -28,12 +28,12 @@ class NameGenerator {
   }
 
   public function getMale():String {
-    var rnd = FlxRandom.intRanged(0, _males.length-1);
+    var rnd = FlxG.random.int(0, _males.length-1);
     return _males[rnd];
   }
 
   public function getFemale():String {
-    var rnd = FlxRandom.intRanged(0, _females.length-1);
+    var rnd =FlxG.random.int(0, _females.length-1);
     return _females[rnd];
   }
 }

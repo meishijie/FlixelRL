@@ -1,16 +1,16 @@
 package jp_2dgames.game.util;
 
 import flixel.FlxG;
-import flixel.input.gamepad.XboxButtonID;
+import flixel.input.gamepad.id.XInputID;
 
 /**
  * ゲームパッド入力管理
  **/
 class Pad {
-  public static inline var A:Int = XboxButtonID.A;
-  public static inline var B:Int = XboxButtonID.B;
-  public static inline var X:Int = XboxButtonID.X;
-  public static inline var Y:Int = XboxButtonID.Y;
+  public static inline var A:Int = XInputID.A;
+  public static inline var B:Int = XInputID.B;
+  public static inline var X:Int = XInputID.X;
+  public static inline var Y:Int = XInputID.Y;
 
   public static inline var DIR_START:Int = 10000;
   public static inline var LEFT:Int  = DIR_START + 0;
@@ -18,8 +18,8 @@ class Pad {
   public static inline var RIGHT:Int = DIR_START + 2;
   public static inline var DOWN:Int  = DIR_START + 3;
 
-  public static inline var BUTTON_X_AXIS = XboxButtonID.LEFT_ANALOGUE_X;
-  public static inline var BUTTON_Y_AXIS = XboxButtonID.LEFT_ANALOGUE_Y;
+  //public static inline var BUTTON_X_AXIS = XInputID.LEFT_ANALOG_STICK;
+ // public static inline var BUTTON_Y_AXIS = XInputID.RIGHT_ANALOG_STICK;
 
   public static inline var BUTTON_AXIS_THRESHOLD:Float = 0.7;
 
@@ -48,8 +48,8 @@ class Pad {
     if(pad == null) {
       return false;
     }
-
-    switch(buttonID) {
+	return false;
+   /* switch(buttonID) {
       case Pad.LEFT:
         var xAxis = pad.getXAxis(Pad.BUTTON_X_AXIS);
         return xAxis < -Pad.BUTTON_AXIS_THRESHOLD;
@@ -64,11 +64,11 @@ class Pad {
         return yAxis > Pad.BUTTON_AXIS_THRESHOLD;
       default:
         return pad.pressed(buttonID);
-    }
+    }*/
   }
 
   public static function press(buttonID:Int):Bool {
-    var pad = FlxG.gamepads.lastActive;
+    /* var pad = FlxG.gamepads.lastActive;
     if(pad == null) {
       return false;
     }
@@ -81,7 +81,7 @@ class Pad {
         return _pressList[buttonID-DIR_START];
       default:
         return pad.justPressed(buttonID);
-    }
+    }*/return false;
   }
 
 }

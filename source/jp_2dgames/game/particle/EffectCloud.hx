@@ -1,8 +1,8 @@
 package jp_2dgames.game.particle;
 import flixel.util.FlxColor;
 import flixel.FlxG;
-import flixel.util.FlxRandom;
-import flixel.group.FlxTypedGroup;
+import flixel.math.FlxRandom;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxSprite;
 
 /**
@@ -63,17 +63,17 @@ class EffectCloud extends FlxSprite {
    * 初期化
    **/
   public function init(i:Int):Void {
-    x = FlxRandom.floatRanged(-FlxG.width/5, FlxG.width);
-    y = FlxRandom.floatRanged(-FlxG.height/5, FlxG.height);
-    var idx = FlxRandom.intRanged(1, 4);
+    x =  FlxG.random.float( -FlxG.width / 5, FlxG.width);
+    y =  FlxG.random.float(-FlxG.height/5, FlxG.height);
+    var idx =  FlxG.random.int(1, 4);
     var cloud = loadGraphic('assets/images/title/cloud${idx}.png');
     if(y > FlxG.height - height) {
-      y = FlxRandom.floatRanged(0, FlxG.height-height/2);
+      y = FlxG.random.float(0, FlxG.height - height / 2);
     }
     var vx = -10 - 5 * i;
-    var vy = FlxRandom.floatRanged(-10, 10);
+    var vy =  FlxG.random.float(-10, 10);
     velocity.set(vx, vy);
-    _alpha = FlxRandom.floatRanged(0.3, 0.6);
+    _alpha =  FlxG.random.float(0.3, 0.6);
 
     // 出現開始
     _state = State.Appear;
@@ -84,8 +84,9 @@ class EffectCloud extends FlxSprite {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     switch(_state) {
       case State.Appear:

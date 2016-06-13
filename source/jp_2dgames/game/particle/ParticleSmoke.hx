@@ -1,7 +1,7 @@
 package jp_2dgames.game.particle;
 import flixel.util.FlxColor;
-import flixel.group.FlxTypedGroup;
-import flixel.util.FlxAngle;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxAngle;
 import flixel.FlxSprite;
 
 /**
@@ -65,9 +65,9 @@ class ParticleSmoke extends FlxSprite {
   /**
 	 * 更新
 	 **/
-
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     alpha -= 0.04;
     if(alpha < 0) {

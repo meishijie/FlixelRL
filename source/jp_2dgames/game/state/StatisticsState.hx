@@ -130,7 +130,8 @@ class StatisticsState extends FlxState {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
   }
 }

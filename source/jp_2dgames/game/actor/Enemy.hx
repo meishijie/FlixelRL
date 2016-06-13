@@ -3,8 +3,8 @@ package jp_2dgames.game.actor;
 import jp_2dgames.game.unlock.UnlockMgr;
 import jp_2dgames.game.save.GameData;
 import jp_2dgames.game.save.PlayData;
-import flixel.util.FlxVector;
-import flixel.util.FlxVector;
+import flixel.math.FlxVector;
+import flixel.math.FlxVector;
 import jp_2dgames.game.util.CauseOfDeathMgr;
 import jp_2dgames.game.util.Calc;
 import jp_2dgames.game.util.Key;
@@ -24,7 +24,7 @@ import jp_2dgames.game.particle.ParticleSmoke;
 import jp_2dgames.game.particle.Particle;
 import jp_2dgames.game.item.ItemData;
 import jp_2dgames.game.gui.Message;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 import jp_2dgames.game.gui.Inventory;
 import jp_2dgames.game.actor.Player;
 import jp_2dgames.game.actor.Actor;
@@ -32,9 +32,9 @@ import flixel.util.FlxColor;
 import flixel.ui.FlxBar;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import jp_2dgames.lib.CsvLoader;
-import flixel.util.FlxPoint;
+import flixel.math.FlxPoint;
 import flixel.FlxG;
 import jp_2dgames.game.util.DirUtil.Dir;
 import flixel.FlxSprite;
@@ -132,8 +132,8 @@ class Enemy extends Actor {
     _registAnim(1);
 
     // HPバー生成
-    _hpBar = new FlxBar(0, 0, FlxBar.FILL_LEFT_TO_RIGHT, Std.int(width - HP_BAR_MARGIN_W), 4);
-    _hpBar.createFilledBar(FlxColor.CRIMSON, FlxColor.CHARTREUSE);
+    _hpBar = new FlxBar(0, 0, FlxBarFillDirection.LEFT_TO_RIGHT, Std.int(width - HP_BAR_MARGIN_W), 4);
+    _hpBar.createFilledBar(FlxColor.RED, FlxColor.GREEN);
 
     // 消しておく
     _hpBar.visible = false;
@@ -253,7 +253,7 @@ class Enemy extends Actor {
               return false;
             }
             var ratio = _getCsvParamInt("ratio");
-            if(FlxRandom.chanceRoll(ratio)) {
+            if(FlxG.random.bool(ratio)) {
               // スキル発動
               var extval = _getCsvParamInt("extval");
               ItemUtil.useExtra(target, extra, extval);
@@ -313,9 +313,9 @@ class Enemy extends Actor {
           Snd.playSe("avoid");
           Message.push2(Msg.MISS, [target.name]);
         }
-        FlxTween.tween(this, {x:x1, y:y1}, 0.1, {ease:FlxEase.expoOut, complete:cbEnd});
+        FlxTween.tween(this, {x:x1, y:y1}, 0.1, {ease:FlxEase.expoOut, onComplete:cbEnd});
       }
-      FlxTween.tween(this, {x:x2, y:y2}, 0.1, {ease:FlxEase.expoIn, complete:cbStart});
+      FlxTween.tween(this, {x:x2, y:y2}, 0.1, {ease:FlxEase.expoIn, onComplete:cbStart});
     }
 
     super.beginAction();
@@ -439,8 +439,9 @@ class Enemy extends Actor {
   /**
 	 * 更新
 	 **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
     // HPバーの更新
     if(hpratio < 100) {
       _hpBar.visible = true;
@@ -458,14 +459,14 @@ class Enemy extends Actor {
       _tNightmare++;
       if(_tNightmare < 32 && _tNightmare%6 == 0) {
         // 出現エフェクト
-        Particle.start(PType.Ring, x, y, FlxColor.SILVER);
+        Particle.start(PType.Ring, x, y, FlxColor.GRAY);
       }
       if(_tNightmare%16 == 0) {
         var dy = height/2;
         Particle.start(PType.Night, x, y+dy, FlxColor.WHITE);
       }
       if(_tNightmare%60 == 0) {
-        Particle.start(PType.Ring2, x, y, FlxColor.SILVER);
+        Particle.start(PType.Ring2, x, y, FlxColor.GRAY);
       }
     }
   }
@@ -552,7 +553,7 @@ class Enemy extends Actor {
       var bHorizon = Math.abs(dx) > Math.abs(dy);
       if(Math.abs(dx) == Math.abs(dy)) {
         // 水平方向と垂直方向の距離が一緒の場合はランダム移動
-        bHorizon = FlxRandom.intRanged(0, 1) == 0;
+        bHorizon = FlxG.random.int(0, 1) == 0;
       }
       if(bHorizon) {
         if(dx < 0) {
@@ -930,14 +931,14 @@ class Enemy extends Actor {
       var pt = FlxPoint.get();
       if(DropItem.checkDrop(pt, xchip, ychip)) {
         var money = 10 + Global.getFloor();
-        money = Std.int(money * FlxRandom.floatRanged(0.9, 1.1));
+        money = Std.int(money * FlxG.random.float(0.9, 1.1));
         DropItem.addMoney(Std.int(pt.x), Std.int(pt.y), money);
       }
       pt.put();
       return;
     }
 
-    var ratio = FlxRandom.intRanged(0, total);
+    var ratio = FlxG.random.int(0, total);
     var valSum:Int = 0;
     for(i in 1...4) {
       var itemid = _getCsvParamInt('drop${i}');
@@ -961,7 +962,7 @@ class Enemy extends Actor {
               // ナイトメアボーナス
               money += 300;
             }
-            money = Std.int(money * FlxRandom.floatRanged(0.9, 1.1));
+            money = Std.int(money * FlxG.random.float(0.9, 1.1));
             DropItem.addMoney(Std.int(pt.x), Std.int(pt.y), money);
           }
           else {

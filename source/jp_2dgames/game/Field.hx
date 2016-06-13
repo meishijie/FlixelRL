@@ -7,17 +7,17 @@ import jp_2dgames.lib.AStar;
 import jp_2dgames.game.particle.Particle;
 import jp_2dgames.lib.Snd;
 import jp_2dgames.game.particle.ParticleSmoke;
-import flixel.addons.effects.FlxWaveSprite;
+import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import jp_2dgames.game.util.DirUtil;
 import jp_2dgames.game.gimmick.Door;
 import jp_2dgames.game.gimmick.Pit;
 import jp_2dgames.game.util.DirUtil.Dir;
-import flixel.util.FlxPoint;
+import flixel.math.FlxPoint;
 import jp_2dgames.lib.CsvLoader;
 import flash.Lib;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 import flixel.FlxG;
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -86,8 +86,8 @@ class Field {
 
   // 背景画像
   private static var _sprBack:FlxSprite;
-  // ゆらゆらエフェクト
-  private static var _sprWave:FlxWaveSprite;
+  // ゆらゆらエフェクトFlxWaveSprite
+  private static var _sprWave:FlxSprite;
   // Tweenエフェクト
   private static var _tweenColor:FlxTween = null;
   private static var _tweenWave:FlxTween = null;
@@ -228,8 +228,8 @@ class Field {
   public static function randomize(layer:Layer2D, floor:Int, csv:Csv) {
 
     // 乱数を初期化
-    FlxRandom.globalSeed = flash.Lib.getTimer();
-
+   // FlxRandom.currentSeed = flash.Lib.getTimer();
+	FlxG.random.currentSeed = flash.Lib.getTimer();
     // プレイヤーを配置
     _randomNarrowOne(layer, PLAYER);
     if(layer.exists(PLAYER) == false) {
@@ -248,7 +248,7 @@ class Field {
     // ショップの配置
     if(layer.exists(SHOP) == false) {
       // ショップがなければ生成チェック
-      if(FlxRandom.chanceRoll(Global.getShopAppearCount())) {
+      if(FlxG.random.bool(Global.getShopAppearCount())) {
         var p = layer.searchRandom(NONE);
         layer.setFromFlxPoint(p, SHOP);
         p.put();
@@ -295,10 +295,10 @@ class Field {
 
     // 回復チップ配置
     if(Global.getFloor() > 4) {
-      if(FlxRandom.chanceRoll(30)) {
+      if(FlxG.random.bool(30)) {
         var p = layer.searchRandom(NONE);
         if(p != null) {
-          if(FlxRandom.chanceRoll(70)) {
+          if(FlxG.random.bool(70)) {
             // 体力回復
             layer.setFromFlxPoint(p, HEART_RED);
           }
@@ -322,7 +322,7 @@ class Field {
     var chip = FlxG.bitmap.add("assets/levels/tileset.png");
     var none = FlxG.bitmap.add("assets/levels/tilenone.png");
     // 透明なスプライトを作成
-    var col = FlxColor.SILVER;// FlxColor.TRANSPARENT;
+    var col = FlxColor.BROWN;// FlxColor.TRANSPARENT;
     spr.makeGraphic(w, h, col);
     spr.pixels.fillRect(new Rectangle(0, 0, w, h), col);
     // 転送先の座標
@@ -365,8 +365,8 @@ class Field {
     // レイヤーを走査する
     layer.forEach(func);
     spr.dirty = true;
-    spr.updateFrameData();
-
+    //spr.updateFrameData();
+	spr.updateFramePixels();
     // メンバ変数に保存
     _sprBack = spr;
 
@@ -376,7 +376,7 @@ class Field {
   /**
    * Waveスプライトを登録する
    **/
-  public static function setWaveSprite(spr:FlxWaveSprite):Void {
+  public static function setWaveSprite(spr:FlxSprite):Void {
     _sprWave = spr;
   }
 
@@ -384,10 +384,10 @@ class Field {
    * 背景を暗くする
    **/
   public static function startFadeBackground():Void {
-    _tweenColor = FlxTween.color(_sprWave, 5, FlxColor.WHITE, NIGHTMARE_COLOR, 1, 1, {ease:FlxEase.sineOut, complete:function(tween:FlxTween) {
+    _tweenColor = FlxTween.color(_sprWave, 5, FlxColor.WHITE, NIGHTMARE_COLOR, {ease:FlxEase.sineOut, onComplete:function(tween:FlxTween) {
       _tweenColor = null; // 完了したら参照を消す
     }});
-    _tweenWave = FlxTween.tween(_sprWave, {strength:3, speed:5}, 10, {ease:FlxEase.sineOut, complete:function(tween:FlxTween) {
+    _tweenWave = FlxTween.tween(_sprWave, {strength:3, speed:5}, 10, {ease:FlxEase.sineOut, onComplete:function(tween:FlxTween) {
       _tweenWave = null; // 完了したら参照を消す
     }});
   }
@@ -403,7 +403,7 @@ class Field {
       _tweenWave = null;
     }
 
-    FlxTween.color(_sprWave, 0.3, NIGHTMARE_COLOR, FlxColor.WHITE, 1, 1, {ease:FlxEase.sineOut});
+    FlxTween.color(_sprWave, 0.3, NIGHTMARE_COLOR, FlxColor.WHITE, {ease:FlxEase.sineOut});
     FlxTween.tween(_sprWave, {strength:0, speed:0}, 0.3, {ease:FlxEase.sineOut});
   }
 
@@ -452,7 +452,8 @@ class Field {
 
     // レイヤーを走査する
     spr.dirty = true;
-    spr.updateFrameData();
+    //spr.updateFrameData();
+	spr.updateFramePixels();
   }
 
   /**
@@ -551,7 +552,7 @@ class Field {
     // エフェクト再生
     var px = toWorldX(i);
     var py = toWorldY(j);
-    Particle.start(PType.Ring2, px, py, FlxColor.AQUAMARINE);
+    Particle.start(PType.Ring2, px, py, FlxColor.GREEN);
 
     Snd.playSe("break", true);
 
@@ -600,7 +601,7 @@ class Field {
     // エフェクト再生
     var px = toWorldX(i);
     var py = toWorldY(j);
-    Particle.start(PType.Ring2, px, py, FlxColor.AQUAMARINE);
+    Particle.start(PType.Ring2, px, py, FlxColor.GREEN);
 
     return true;
   }
@@ -717,7 +718,7 @@ class Field {
     }
     var px = toWorldX(pt.x);
     var py = toWorldY(pt.y);
-    Particle.start(PType.Ring2, px, py, FlxColor.YELLOW);
+     Particle.start(PType.Ring2, px, py, FlxColor.YELLOW);
     pt.put();
   }
 }

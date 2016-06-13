@@ -2,7 +2,7 @@ package jp_2dgames.game.gimmick;
 import jp_2dgames.game.particle.Particle;
 import flixel.util.FlxColor;
 import jp_2dgames.game.particle.ParticleSmoke;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxSprite;
 
 /**
@@ -98,7 +98,7 @@ class Door extends FlxSprite {
   private function _countDonw():Bool {
 
     // エフェクト再生
-    Particle.start(PType.Ring, x, y, FlxColor.AQUAMARINE);
+    Particle.start(PType.Ring, x, y, FlxColor.GREEN);
 
     _hp--;
     if(_hp <= 0) {
@@ -106,7 +106,7 @@ class Door extends FlxSprite {
       kill();
       Field.eraseDoor(xchip, ychip);
       ParticleSmoke.start("drill", x, y);
-      Particle.start(PType.Circle, x, y, FlxColor.AQUAMARINE);
+      Particle.start(PType.Circle, x, y, FlxColor.GREEN);
       return true;
     }
 

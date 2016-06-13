@@ -1,10 +1,10 @@
 package jp_2dgames.game.particle;
 import flash.display.BlendMode;
-import flixel.util.FlxRandom;
-import flixel.group.FlxTypedGroup;
-import flixel.util.FlxAngle;
+import flixel.math.FlxRandom;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxAngle;
 import flixel.FlxSprite;
-
+import flixel.FlxG;
 /**
  * パーティクルの種類
  **/
@@ -26,14 +26,14 @@ class Particle extends FlxSprite {
   public static function start(type:PType, X:Float, Y:Float, color:Int):Void {
     switch(type) {
       case PType.Circle:
-        var dir = FlxRandom.floatRanged(0, 45);
+        var dir = FlxG.random.float(0, 45);
         for(i in 0...8) {
           var p:Particle = parent.recycle();
-          var spd = FlxRandom.floatRanged(100, 400);
-          var t = FlxRandom.intRanged(40, 60);
+          var spd = FlxG.random.float(100, 400);
+          var t = FlxG.random.int(40, 60);
           p.init(type, t, X, Y, dir, spd);
           p.color = color;
-          dir += FlxRandom.floatRanged(40, 50);
+          dir += FlxG.random.float(40, 50);
         }
       case PType.Ring, PType.Ring2:
         var t = 60;
@@ -43,8 +43,8 @@ class Particle extends FlxSprite {
 
       case PType.Night:
         var p:Particle = parent.recycle();
-        var spd = FlxRandom.floatRanged(10, 20);
-        var t = FlxRandom.intRanged(40, 60);
+        var spd = FlxG.random.float(10, 20);
+        var t = FlxG.random.int(40, 60);
         p.init(type, t, X, Y, 90, spd);
         p.color = color;
     }
@@ -116,7 +116,7 @@ class Particle extends FlxSprite {
       case PType.Night:
         scale.set(0.25, 0.25);
         acceleration.y = -200;
-        _val = FlxRandom.float() * 3.14*2;
+        _val = FlxG.random.float() * 3.14*2;
     }
   }
 
@@ -124,8 +124,9 @@ class Particle extends FlxSprite {
 	 * 更新
 	 **/
 
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     switch(_type) {
       case PType.Circle:

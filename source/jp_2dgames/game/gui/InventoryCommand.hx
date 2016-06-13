@@ -2,7 +2,7 @@ package jp_2dgames.game.gui;
 import jp_2dgames.game.gui.Message.Msg;
 import jp_2dgames.game.util.MyColor;
 import jp_2dgames.game.util.Key;
-import flixel.util.FlxAngle;
+import flixel.math.FlxAngle;
 import jp_2dgames.lib.Snd;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -108,8 +108,9 @@ class InventoryCommand extends FlxSpriteGroup {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+  {
+    super.update(elapsed);
 
     var i = 0;
     for(txt in _txtList) {

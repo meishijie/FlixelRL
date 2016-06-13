@@ -11,7 +11,7 @@ import jp_2dgames.lib.CsvLoader;
 import jp_2dgames.game.actor.Enemy;
 import jp_2dgames.game.state.PlayState;
 import flixel.FlxG;
-import flixel.util.FlxPoint;
+import flixel.math.FlxPoint;
 import jp_2dgames.lib.Layer2D;
 
 /**

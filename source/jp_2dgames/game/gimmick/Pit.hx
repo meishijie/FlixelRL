@@ -3,7 +3,7 @@ package jp_2dgames.game.gimmick;
 import jp_2dgames.game.actor.Enemy;
 import jp_2dgames.game.state.PlayState;
 import flixel.FlxG;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxSprite;
 
 /**
@@ -180,8 +180,9 @@ class Pit extends FlxSprite {
     return _state == State.Exec;
   }
 
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     if(_state == State.Exec) {
       _timer--;

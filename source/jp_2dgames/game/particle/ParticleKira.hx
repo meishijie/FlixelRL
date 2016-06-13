@@ -1,9 +1,9 @@
 package jp_2dgames.game.particle;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 import flash.display.BlendMode;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxSprite;
-
+import flixel.FlxG;
 /**
  * 状態
  **/
@@ -51,13 +51,13 @@ class ParticleKira extends FlxSprite {
     x = X;
     y = Y;
 
-    var sc = FlxRandom.floatRanged(0.5, 1);
+    var sc = FlxG.random.float(0.5, 1);
     scale.set(sc, sc);
     visible = true;
-    velocity.y = -FlxRandom.floatRanged(10, 20);
+    velocity.y = -FlxG.random.float(10, 20);
     acceleration.y = -5;
     // 回転させる
-    angularVelocity = FlxRandom.floatRanged(30, 120);
+    angularVelocity = FlxG.random.float(30, 120);
     angularDrag = 5;
 
     _timer = TIMER_MAIN;
@@ -67,8 +67,9 @@ class ParticleKira extends FlxSprite {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
     switch(_state) {
       case State.Main:
         _timer--;

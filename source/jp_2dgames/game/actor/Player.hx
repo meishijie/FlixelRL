@@ -8,7 +8,7 @@ import jp_2dgames.game.util.Calc;
 import jp_2dgames.game.util.Key;
 import jp_2dgames.game.util.DirUtil;
 import jp_2dgames.game.NightmareMgr.NightmareSkill;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 import jp_2dgames.game.gui.InventoryUtil;
 import jp_2dgames.game.item.ItemData;
 import jp_2dgames.game.actor.BadStatusUtil.BadStatus;
@@ -24,7 +24,7 @@ import jp_2dgames.game.gui.Message;
 import jp_2dgames.game.gui.Inventory;
 import jp_2dgames.game.actor.Actor;
 import jp_2dgames.game.util.DirUtil.Dir;
-import flixel.util.FlxPoint;
+import flixel.math.FlxPoint;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
@@ -303,7 +303,7 @@ class Player extends Actor {
             // 壁が壊せる
             Field.breakWall(tx, ty);
             // 使用回数減少
-            var val = FlxRandom.intRanged(2, 5);
+            var val = FlxG.random.int(2, 5);
             if(Inventory.degradeEquipment(IType.Weapon, val)) {
               // 武器破壊
               ParticleMessage.start(x, y, "BROKEN", FlxColor.RED);
@@ -337,11 +337,11 @@ class Player extends Actor {
             Message.push2(Msg.MISS, [_target.name]);
           }
         }
-        FlxTween.tween(this, {x:x1, y:y1}, 0.1, {ease:FlxEase.expoOut, complete:cbEnd});
+        FlxTween.tween(this, {x:x1, y:y1}, 0.1, {ease:FlxEase.expoOut, onComplete:cbEnd});
       }
 
       // アニメーション開始
-      FlxTween.tween(this, {x:x2, y:y2}, 0.1, {ease:FlxEase.expoIn, complete:cbStart});
+      FlxTween.tween(this, {x:x2, y:y2}, 0.1, {ease:FlxEase.expoIn, onComplete:cbStart});
     }
     super.beginAction();
   }
@@ -543,8 +543,9 @@ class Player extends Actor {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
     _tElapsed += FlxG.elapsed;
   }
 
@@ -564,7 +565,7 @@ class Player extends Actor {
       // 移動した
       return true;
     }
-
+   
     // 何もしていない
     return false;
   }

@@ -18,7 +18,7 @@ import StringTools;
 import flixel.FlxG;
 import openfl.Assets;
 import flixel.group.FlxSpriteGroup;
-
+import jp_2dgames.game.event.EventNpc;
 /**
  * 状態
  **/
@@ -153,8 +153,9 @@ class EventScript extends FlxSpriteGroup {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     // カーソルアニメーション更新
     _tAnim += FlxG.elapsed;
@@ -165,7 +166,7 @@ class EventScript extends FlxSpriteGroup {
       _sprCursor.color = FlxColor.WHITE;
     }
     else {
-      _sprCursor.color = FlxColor.GOLDEN;
+      _sprCursor.color = FlxColor.YELLOW;
     }
   }
 
@@ -332,7 +333,8 @@ class EventScript extends FlxSpriteGroup {
 
     // 描画内容を反映
     _back.dirty = true;
-    _back.updateFrameData();
+   // _back.updateFrameData();
+	 _back.updateFramePixels();
     return RET_CONTINUE;
   }
 
@@ -427,14 +429,14 @@ class EventScript extends FlxSpriteGroup {
     var cy = FlxG.height/2 - _sprEvent.height/2;
     _sprEvent.x = cx;
     _sprEvent.y = FlxG.height;
-    FlxTween.tween(_sprEvent, {y:cy}, 1, {ease:FlxEase.expoOut, complete:function(tween:FlxTween) {
+    FlxTween.tween(_sprEvent, {y:cy}, 1, {ease:FlxEase.expoOut, onComplete:function(tween:FlxTween) {
       _state = State.Exec;
     }});
 
     return RET_WAIT;
   }
   private function _IMAGE_OFF(args:Array<String>):Int {
-    FlxTween.tween(_sprEvent, {alpha:0}, 1, {ease:FlxEase.expoOut, complete:function(tween:FlxTween) {
+    FlxTween.tween(_sprEvent, {alpha:0}, 1, {ease:FlxEase.expoOut, onComplete:function(tween:FlxTween) {
       _sprEvent.kill();
       _state = State.Exec;
     }});
@@ -496,7 +498,7 @@ class EventScript extends FlxSpriteGroup {
   // -------------------------------------------------
   private function _WAIT(args:Array<String>):Int {
     var time = Std.parseFloat(args[0]);
-    new FlxTimer(time, function(t:FlxTimer) {
+    new FlxTimer().start(time, function(t:FlxTimer) {
       // 完了したらスクリプト実行に戻る
       _state = State.Exec;
     });
@@ -591,6 +593,7 @@ class EventScript extends FlxSpriteGroup {
 
     // 描画内容を反映
     _back.dirty = true;
-    _back.updateFrameData();
+    //_back.updateFrameData();
+	_back.updateFramePixels();
   }
 }

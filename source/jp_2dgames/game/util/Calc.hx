@@ -5,8 +5,8 @@ import Math;
 import jp_2dgames.game.item.ItemData;
 import jp_2dgames.game.item.ItemUtil;
 import jp_2dgames.game.actor.Actor;
-import flixel.util.FlxRandom;
-
+import flixel.math.FlxRandom;
+import flixel.FlxG;
 /**
  * 各種計算式
  **/
@@ -66,14 +66,14 @@ class Calc {
     var val = (power * str_rate * power_rate);
     if(val <= 0) {
       // 0ダメージはランダムで1〜3ダメージ
-      val = FlxRandom.intRanged(1, 3);
+      val = FlxG.random.int(1, 3);
     }
     else {
       // ランダムで±10%変動
-      var d = val * FlxRandom.floatRanged(-0.1, 0.1);
+      var d = val * FlxG.random.float(-0.1, 0.1);
       if(Math.abs(d) < 3) {
         // 3より小さい場合は+1〜3する
-        val += FlxRandom.intRanged(1, 3);
+        val += FlxG.random.int(1, 3);
       }
       else {
         val += d;
@@ -114,14 +114,14 @@ class Calc {
     var val = (power * str_rate * power_rate);
     if(val <= 0) {
       // 0ダメージはランダムで1〜3ダメージ
-      val = FlxRandom.intRanged(1, 3);
+      val = FlxG.random.int(1, 3);
     }
     else {
       // ランダムで+5%変動
-      var d = val * FlxRandom.floatRanged(0, 0.05);
+      var d = val * FlxG.random.float(0, 0.05);
       if(Math.abs(d) < 1) {
         // 1以下の場合は+1〜3する
-        val += FlxRandom.intRanged(1, 3);
+        val += FlxG.random.int(1, 3);
       }
       else {
         val += d;
@@ -147,7 +147,7 @@ class Calc {
     }
 
     // 92%の確率で当たる
-    return FlxRandom.chanceRoll(92);
+    return FlxG.random.bool(92);
   }
 
   /**
@@ -162,7 +162,7 @@ class Calc {
     }
 
     // 87%の確率で当たる
-    return FlxRandom.chanceRoll(87);
+    return FlxG.random.bool(87);
   }
 
   /**
@@ -177,14 +177,14 @@ class Calc {
     }
 
     // 87%の確率で当たる
-    return FlxRandom.chanceRoll(87);
+    return FlxG.random.bool(87);
   }
 
   /**
    * ハートで回復する値を取得する
    **/
   public static function getHeartRecoveryRatio():Int {
-    var v = FlxRandom.intRanged(0, 99);
+    var v = FlxG.random.int(0, 99);
     if(v < 30) {
       return 25;
     }

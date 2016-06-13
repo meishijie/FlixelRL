@@ -8,7 +8,7 @@ import jp_2dgames.game.gui.InventoryUtil;
 import flixel.FlxG;
 import jp_2dgames.game.particle.ParticleSmoke;
 import jp_2dgames.game.item.ItemConst;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 import jp_2dgames.game.item.ItemUtil;
 import jp_2dgames.lib.Snd;
 import jp_2dgames.game.actor.BadStatusUtil.BadStatus;
@@ -453,8 +453,11 @@ class Actor extends FlxSprite {
   /**
 	 * コンストラクタ
 	 **/
-  public function new() {
-    super();
+ public function new(?X:Float=0, ?Y:Float=0 ) 
+	{
+		super(X, Y );
+		
+ 
 
     // バッドステータスアイコン
     _balloon = new ActorBalloon();
@@ -576,8 +579,9 @@ class Actor extends FlxSprite {
   /**
 	 * 更新
 	 **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+  {
+    super.update(elapsed);
     if(_tShake > 0) {
       _tShake--;
       var ox = width / 2;
@@ -740,7 +744,7 @@ class Actor extends FlxSprite {
           switch(extra) {
             case "hpmax", "food", "str", "powerful":
               // ダメージ
-              return damage(FlxRandom.intRanged(1, 3));
+              return damage(FlxG.random.int(1, 3));
             default:
               // 特殊効果あり
               ItemUtil.useExtra(this, extra, extval);
@@ -750,11 +754,11 @@ class Actor extends FlxSprite {
 
       case IType.Weapon:
         // 武器はダメージ量が少しだけ多い
-        var v = FlxRandom.intRanged(8, 12);
+        var v = FlxG.random.int(8, 12);
         return damage(v);
       case IType.Food:
         // リンゴは飛び道具として使える
-        var v = FlxRandom.intRanged(5, 7);
+        var v = FlxG.random.int(5, 7);
         v += ItemUtil.getParam(item.id, "atk");
         switch(extra) {
           case "poison":
@@ -780,13 +784,13 @@ class Actor extends FlxSprite {
             return damage(9999);
           default:
             // それ以外は微量ダメージ
-            var v = FlxRandom.intRanged(5, 7);
+            var v = FlxG.random.int(5, 7);
             return damage(v);
         }
 
       default:
         // それ以外は微量のダメージ
-        var v = FlxRandom.intRanged(5, 7);
+        var v = FlxG.random.int(5, 7);
         return damage(v);
     }
   }

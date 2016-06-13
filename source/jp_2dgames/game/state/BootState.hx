@@ -20,31 +20,27 @@ class BootState extends FlxState {
     GameData.load();
 
     // プレイログのロード
-    PlayLog.load();
+    //PlayLog.load();
 
     // 死亡理由メッセージ読み込み
     CauseOfDeathMgr.create();
   }
 
-  /**
-   * 破棄
-   **/
-  override public function destroy():Void {
-    super.destroy();
-  }
 
   /**
    * 更新
    **/
-  override public function update():Void {
+  override public function update(elapsed:Float):Void
+  {
+    super.update(elapsed);
   #if flash
     FlxG.switchState(new TitleState());
   #else
 //    FlxG.switchState(new PlayInitState());
 //    FlxG.switchState(new TitleState());
-    FlxG.switchState(new StatsState());
+    FlxG.switchState(new TitleState());
+    //FlxG.switchState(new StatsState());
   #end
-
-    super.update();
+ 
   }
 }

@@ -161,12 +161,12 @@ class Dialog extends FlxGroup {
     // カーソル
     if(_type == SELECT3) {
       _cursor = new FlxSprite(px, py2);
-      _cursor.makeGraphic(128, 24, FlxColor.AQUAMARINE);
+      _cursor.makeGraphic(128, 24, FlxColor.GREEN);
       _cursor.alpha = 0.3;
     }
     else {
       _cursor = new FlxSprite(px, py2);
-      _cursor.makeGraphic(84, 24, FlxColor.AQUAMARINE);
+      _cursor.makeGraphic(84, 24, FlxColor.GREEN);
       _cursor.alpha = 0.3;
     }
     this.add(_cursor);
@@ -177,8 +177,9 @@ class Dialog extends FlxGroup {
   /**
 	 * 更新
 	 **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     switch(_state) {
       case State.Main:

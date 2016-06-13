@@ -56,7 +56,7 @@ class GuiEnemy extends FlxSpriteGroup {
 
     // 敵画像背景
     var sprBg2 = new FlxSprite(IMG_X, IMG_Y).makeGraphic(32, 32, FlxColor.WHITE);
-    sprBg2.color = FlxColor.SILVER;
+    sprBg2.color = FlxColor.BROWN;
     this.add(sprBg2);
     // 敵画像
     _imgEnemy = new FlxSprite(IMG_X, IMG_Y);
@@ -84,8 +84,9 @@ class GuiEnemy extends FlxSpriteGroup {
   /**
    * 更新
    **/
-  override public function update() {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     if(_enemy == null) {
       return;

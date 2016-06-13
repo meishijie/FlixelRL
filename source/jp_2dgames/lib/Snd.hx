@@ -136,4 +136,7 @@ class Snd {
 class SoundInfo {
   public var data:FlxSound = null;
   public var time:Float = 0;
+   public function new():Void {
+     
+  }
 }

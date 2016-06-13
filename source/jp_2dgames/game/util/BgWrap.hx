@@ -42,7 +42,7 @@ class BgWrap extends FlxSpriteGroup {
         bg.scale.set(2, 2);
         if(bFade) {
           // 黒フェードイン
-          FlxTween.color(bg, 2, FlxColor.BLACK, FlxColor.GRAY, 1, 1, {ease:FlxEase.expoOut});
+          FlxTween.color(bg, 2, FlxColor.BLACK, FlxColor.GRAY, {ease:FlxEase.expoOut});
         }
         else {
           // フェードなし
@@ -56,8 +56,9 @@ class BgWrap extends FlxSpriteGroup {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     for(bg in this.group) {
       if(bg.x < -SIZE) {

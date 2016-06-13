@@ -1,6 +1,6 @@
 package jp_2dgames.lib;
 
-import flixel.util.FlxPoint;
+import flixel.math.FlxPoint;
 
 /**
  * ノードの状態

@@ -109,7 +109,8 @@ class NameEntryState extends FlxSubState {
       var rect = new Rectangle(fSize, fSize, w-fSize*2, h-fSize*2);
       bg.pixels.fillRect(rect, FlxColor.BLACK);
       bg.dirty = true;
-      bg.updateFrameData();
+      //bg.updateFrameData();
+	  bg.updateFramePixels();
     }
     bg.alpha = 0;
     _group.add(bg);
@@ -131,16 +132,16 @@ class NameEntryState extends FlxSubState {
 
     // 名前入力の枠
     _sprName = new FlxSprite(NAME_X-8, NAME_Y-8);
-    _sprName.makeGraphic(NAME_W, Reg.FONT_SIZE*2, FlxColor.CORAL);
+    _sprName.makeGraphic(NAME_W, Reg.FONT_SIZE*2, FlxColor.PINK);
     {
       var w = _sprName.width;
       var h = _sprName.height;
       var rect = new Rectangle(2, 2, w-4, h-4);
       _sprName.pixels.fillRect(rect, 0x802010);
       _sprName.dirty = true;
-      _sprName.updateFrameData();
+      _sprName.updateFramePixels();
     }
-    FlxTween.color(_sprName, 1, FlxColor.SILVER, FlxColor.WHITE, 1, 1, {type:FlxTween.PINGPONG, ease:FlxEase.sineInOut});
+    FlxTween.color(_sprName, 1, FlxColor.GRAY, FlxColor.WHITE,  {type:FlxTween.PINGPONG, ease:FlxEase.sineInOut});
     _group.add(_sprName);
 
     // 名前入力
@@ -150,7 +151,7 @@ class NameEntryState extends FlxSubState {
     // ポップアップテキスト
     _txtTip = new FlxText(0, 0, 320, "");
     _txtTip.setFormat(Reg.PATH_FONT, Reg.FONT_SIZE);
-    _txtTip.setBorderStyle(FlxText.BORDER_OUTLINE, FlxColor.GREEN);
+    _txtTip.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.GREEN);
     _txtTip.color = FlxColor.WHITE;
     _txtTip.visible = false;
 
@@ -260,8 +261,9 @@ class NameEntryState extends FlxSubState {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     _txtTip.x = FlxG.mouse.x+16;
     _txtTip.y = FlxG.mouse.y-24;
@@ -286,13 +288,13 @@ class NameEntryState extends FlxSubState {
    * 文字入力
    **/
   private function _updateInput():Void {
-    for(i in FlxKey.A...FlxKey.Z + 1) {
+    for(i in FlxKey.A...91) {
       if(FlxG.keys.justPressed.check(i)) {
         var c = String.fromCharCode(i).toLowerCase();
         _addName(c);
       }
     }
-    for(i in FlxKey.ZERO...FlxKey.NINE+1) {
+    for(i in FlxKey.ZERO...59) {
       if(FlxG.keys.justPressed.check(i)) {
         var c = String.fromCharCode(i);
         _addName(c);

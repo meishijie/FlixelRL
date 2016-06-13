@@ -4,7 +4,7 @@ import jp_2dgames.game.actor.BadStatusUtil.BadStatus;
 import jp_2dgames.game.gui.Inventory;
 import jp_2dgames.game.actor.Npc;
 import jp_2dgames.game.util.DirUtil;
-import flixel.util.FlxPoint;
+import flixel.math.FlxPoint;
 import jp_2dgames.game.state.PlayState;
 import jp_2dgames.game.gui.GuiBuyDetail;
 import jp_2dgames.game.item.ItemData;
@@ -16,7 +16,7 @@ import jp_2dgames.game.item.ItemUtil;
 import jp_2dgames.game.item.ItemData.ItemExtraParam;
 import jp_2dgames.game.actor.Params;
 import jp_2dgames.game.actor.Enemy;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 import jp_2dgames.lib.Layer2D;
 
 /**
@@ -81,7 +81,7 @@ class GenerateInfo {
    **/
   public function generate():Int {
     // ランダムで決定する
-    var rnd = FlxRandom.intRanged(0, _sum-1);
+    var rnd = FlxG.random.int(0, _sum-1);
     var idx:Int = 0;
     for(ratio in _ratios) {
       if(rnd < ratio) {
@@ -110,12 +110,12 @@ class GenerateInfo {
         var extval = ItemUtil.getExtVal(itemid);
         if(extra == "drill") {
 
-          param.condition = FlxRandom.intRanged(5, 15);
+          param.condition = FlxG.random.int(5, 15);
         }
 
         // 付加威力値
         var func = function() {
-          var rnd = FlxRandom.intRanged(0, 999);
+          var rnd = FlxG.random.int(0, 999);
           if(rnd < 550) { return 0; } // 55%
           else if(rnd < 800) { return 1; } // 25%
           else if(rnd < 920) { return 2; } // 12%
@@ -127,7 +127,7 @@ class GenerateInfo {
         param.value = func();
       case IType.Wand:
         // 使用回数
-        param.value = FlxRandom.intRanged(1, 3);
+        param.value = FlxG.random.int(1, 3);
       default:
     }
 
@@ -152,7 +152,7 @@ class Generator {
     var dy = player.ychip - enemy.ychip;
     var ratio:Int = 100;
     ratio -= (dx*10) + (dy*10);
-    return FlxRandom.chanceRoll(ratio);
+    return FlxG.random.bool(ratio);
   }
 
   /**
@@ -191,13 +191,13 @@ class Generator {
             itemid = 1;
           }
           var param = GenerateInfo.generateItemParam(itemid);
-          if(FlxRandom.chanceRoll(2)) {
+          if(FlxG.random.bool(2)) {
             // 2%でお金出現
             var max = 100 + Global.getFloor() * 20;
             if(max > 500) {
               max = 500;
             }
-            var v = FlxRandom.intRanged(100, max);
+            var v = FlxG.random.int(100, max);
             DropItem.addMoney(i, j, v);
           }
           else {
@@ -221,7 +221,7 @@ class Generator {
         case Field.CAT:
           // ネコ
           var tbl = [Npc.TYPE_RED, Npc.TYPE_BLUE, Npc.TYPE_WHITE, Npc.TYPE_GREEN];
-          FlxRandom.shuffleArray(tbl, 3);
+          FlxG.random.shuffleArray(tbl, 3);
           var type = Npc.TYPE_RED;
           for(t in tbl) {
             var itemid = Npc.typeToItemID(t);

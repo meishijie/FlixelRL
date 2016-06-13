@@ -5,7 +5,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.FlxG;
 import jp_2dgames.game.actor.Enemy;
-import flixel.util.FlxPoint;
+import flixel.math.FlxPoint;
 import jp_2dgames.game.gui.Message;
 import jp_2dgames.game.actor.Actor;
 
@@ -65,7 +65,7 @@ class ThrowItem {
           // 壁に当たった
           var xtarget = Field.toWorldX(xprev);
           var ytarget = Field.toWorldY(yprev);
-          FlxTween.tween(_spr, {x:xtarget, y:ytarget}, distance, {ease:FlxEase.bounceOut, complete:function(tween:FlxTween) {
+          FlxTween.tween(_spr, {x:xtarget, y:ytarget}, distance, {ease:FlxEase.bounceOut, onComplete:function(tween:FlxTween) {
             Message.push2(Msg.ITEM_HIT_WALL, [itemname]);
 
             if(DropItem.checkDrop(pt, xprev, yprev)) {
@@ -87,7 +87,7 @@ class ThrowItem {
           // 敵に当たった
           var xtarget = Field.toWorldX(xpos);
           var ytarget = Field.toWorldY(ypos);
-          FlxTween.tween(_spr, {x:xtarget, y:ytarget}, distance, {ease:FlxEase.backIn, complete:function(tween:FlxTween) {
+          FlxTween.tween(_spr, {x:xtarget, y:ytarget}, distance, {ease:FlxEase.backIn, onComplete:function(tween:FlxTween) {
             if(e.hitItem(actor, item) == false) {
               // 敵がかわした
               Message.push2(Msg.MISS, [e.name]);

@@ -29,9 +29,9 @@ class MyColor {
       case "white": return FlxColor.WHITE;
       case "red": return FlxColor.PINK;
       case "green": return FlxColor.LIME;
-      case "blue": return FlxColor.AQUAMARINE;
+      case "blue": return FlxColor.BLUE;
       case "yellow": return FlxColor.YELLOW;
-      case "orange": return FlxColor.WHEAT;
+      case "orange": return FlxColor.ORANGE;
       default:
         return FlxColor.BLACK;
     }

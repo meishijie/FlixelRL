@@ -61,7 +61,7 @@ class StatsState extends FlxState {
     {
       _txtTip = new FlxText(0, 0, 280, "");
       _txtTip.setFormat(Reg.PATH_FONT, Reg.FONT_SIZE);
-      _txtTip.setBorderStyle(FlxText.BORDER_OUTLINE, FlxColor.GREEN);
+      _txtTip.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.GREEN);
       _txtTip.color = FlxColor.WHITE;
       _txtTip.visible = false;
 
@@ -180,8 +180,9 @@ class StatsState extends FlxState {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     // ヘルプチップ更新
     if(_txtTip != null) {

@@ -6,15 +6,15 @@ import jp_2dgames.game.particle.Particle;
 import jp_2dgames.game.particle.ParticleKira;
 import jp_2dgames.game.util.DirUtil;
 import flixel.FlxG;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 import jp_2dgames.game.util.DirUtil.Dir;
-import flixel.util.FlxPoint;
+import flixel.math.FlxPoint;
 import jp_2dgames.game.item.ItemData.ItemExtraParam;
 import jp_2dgames.game.item.ItemUtil.IType;
 import jp_2dgames.game.gui.Message;
 import jp_2dgames.game.gui.Inventory;
 import jp_2dgames.game.item.ItemUtil.IType;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxSprite;
 
 /**
@@ -104,7 +104,7 @@ class DropItem extends FlxSprite {
   public static function checkDrop(outPt:FlxPoint, xchip:Int, ychip:Int):Bool {
     // 上下左右4方向のみを調べる
     var dirs = [Dir.Left, Dir.Up, Dir.Right, Dir.Down];
-    FlxRandom.shuffleArray(dirs, 1);
+    FlxG.random.shuffleArray(dirs, 1);
     // 最初は開始地点を調べる
     dirs.insert(0, Dir.None);
     for(dir in dirs) {
@@ -243,14 +243,15 @@ class DropItem extends FlxSprite {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
-    if(FlxRandom.chanceRoll(3)) {
+    if(FlxG.random.bool(3)) {
       var w = width*0.3;
       var h = height/2;
-      var px = x + FlxRandom.floatRanged(-w, w);
-      var py = y + FlxRandom.floatRanged(0, h);
+      var px = x + FlxG.random.float(-w, w);
+      var py = y + FlxG.random.float(0, h);
       ParticleKira.start(px, py);
     }
   }

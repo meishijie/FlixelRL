@@ -12,7 +12,7 @@ import jp_2dgames.game.gui.Message;
 import jp_2dgames.game.gui.Message.Msg;
 import jp_2dgames.game.actor.Actor;
 import jp_2dgames.game.actor.Enemy;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 /**
  * 魔法弾管理

@@ -6,7 +6,7 @@ import jp_2dgames.game.util.CauseOfDeathMgr;
 import flixel.FlxG;
 import jp_2dgames.game.util.DirUtil;
 import jp_2dgames.game.item.ItemConst;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 import openfl.Assets;
 import jp_2dgames.game.item.ItemData;
 import jp_2dgames.game.gui.Inventory;
@@ -369,7 +369,7 @@ class Global {
     _shopAppearCount = v;
   }
   public static function nextShopAppearCount():Void {
-    _shopAppearCount += FlxRandom.intRanged(1, 2);
+    _shopAppearCount += FlxG.random.int(1, 2);
   }
   public static function resetShopAppearCount():Void {
     _shopAppearCount = 0;

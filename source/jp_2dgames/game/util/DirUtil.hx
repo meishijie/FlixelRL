@@ -1,8 +1,8 @@
 package jp_2dgames.game.util;
 
-import flixel.util.FlxRandom;
-import flixel.util.FlxPoint;
-
+import flixel.math.FlxRandom;
+import flixel.math.FlxPoint;
+import flixel.FlxG;
 /**
  * 方向
  */
@@ -159,7 +159,7 @@ class DirUtil {
    * ランダムな方向を返す
    **/
   public static function random():Dir {
-    switch(FlxRandom.intRanged(0, 3)) {
+    switch(FlxG.random.int(0, 3)) {
       case 0: return Dir.Left;
       case 1: return Dir.Up;
       case 2: return Dir.Right;

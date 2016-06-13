@@ -2,18 +2,18 @@ package jp_2dgames.game.event;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import flixel.util.FlxPoint;
-import flixel.util.FlxRandom;
+import flixel.math.FlxPoint;
+import flixel.math.FlxRandom;
 import flixel.util.FlxTimer;
 import jp_2dgames.game.util.DirUtil;
 
 /**
  * NPCコマンド
  **/
-private class _Cmd {
+private class _Cmd    {
   public static inline var TYPE_MOVE:Int    = 0;  // 移動する
   public static inline var TYPE_DIR:Int     = 1;  // 向きを変える
   public static inline var TYPE_WAIT:Int    = 2;  // 一時停止する
@@ -253,8 +253,9 @@ class EventNpc extends FlxSprite {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     switch(_state) {
       case State.Standby:
@@ -291,7 +292,7 @@ class EventNpc extends FlxSprite {
         // ランダムな方向に歩く
         _execWalk(DirUtil.random());
         // タイマー初期化
-        _tRandomWalk = FlxRandom.floatRanged(3, 7);
+        _tRandomWalk = FlxG.random.float(3, 7);
       }
     }
   }
@@ -369,7 +370,7 @@ class EventNpc extends FlxSprite {
   private function _execWait(cmd:_Cmd):Void {
 
     _state = State.Wait;
-    new FlxTimer(cmd.paramFloat, function(t:FlxTimer) {
+    new FlxTimer().start(cmd.paramFloat, function(t:FlxTimer) {
       _state = State.Standby;
     });
   }
@@ -444,7 +445,7 @@ class EventNpc extends FlxSprite {
    **/
   public function requestRandomWalk(b:Bool):Void {
     _bRandomWalk = b;
-    _tRandomWalk = FlxRandom.floatRanged(2, 8);
+    _tRandomWalk = FlxG.random.float(2, 8);
   }
 
   /**
@@ -505,7 +506,7 @@ class EventNpc extends FlxSprite {
     switch(cmd.paramStr) {
       case "fade":
         // フェードで消す
-        FlxTween.tween(this, {alpha:0}, cmd.paramFloat, {complete:function(tween:FlxTween) {
+        FlxTween.tween(this, {alpha:0}, cmd.paramFloat, {onComplete:function(tween:FlxTween) {
           kill();
         }});
       default:

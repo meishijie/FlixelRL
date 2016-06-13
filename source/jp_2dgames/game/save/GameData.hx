@@ -9,10 +9,10 @@ import jp_2dgames.game.util.CauseOfDeathMgr;
 import flash.external.ExternalInterface;
 import jp_2dgames.game.util.NameGenerator;
 import flixel.util.FlxSave;
-#if flash
+//#if flash
 // HACK: これを描かないとリフレクションできない
-import jp_2dgames.game.util.Auth;
-#end
+//import jp_2dgames.game.util.Auth;
+//#end
 
 /**
  * グローバルゲームデータ
@@ -257,11 +257,11 @@ class GameData {
     // 認証キー取得
     var key = "none";
     {
-      var type = Type.resolveClass("jp_2dgames.game.util.Auth");
-      if(type != null) {
-        var obj = Type.createEmptyInstance(type);
-        key = Reflect.callMethod(obj, Reflect.field(obj, "generate"), [lv]);
-      }
+      //var type = Type.resolveClass("jp_2dgames.game.util.Auth");
+     // if(type != null) {
+       // var obj = Type.createEmptyInstance(type);
+       // key = Reflect.callMethod(obj, Reflect.field(obj, "generate"), [lv]);
+     // }
     }
     var data = 'user_name=${user}';
     data += '&score=${score}';
@@ -275,7 +275,7 @@ class GameData {
     data += '&ring=${ring}';
 
     data = StringTools.replace(data, "+", "@");
-    flash.external.ExternalInterface.call("SendScore", data);
+    //flash.external.ExternalInterface.call("SendScore", data);
 
     // ハイスコア更新
     updateHiscore(score);

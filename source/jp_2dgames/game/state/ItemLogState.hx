@@ -110,7 +110,7 @@ class ItemLogState extends FlxState {
       var func = function() {
         // ページ切り替え
         for(b in _btnList) {
-          b.color = FlxColor.SILVER;
+          b.color = FlxColor.GRAY;
         }
         btn.color = FlxColor.WHITE;
         _clickCategory(name);
@@ -298,8 +298,9 @@ class ItemLogState extends FlxState {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     // カーソル座標更新
     {

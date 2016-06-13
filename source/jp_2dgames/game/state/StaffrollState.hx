@@ -1,6 +1,6 @@
 package jp_2dgames.game.state;
 import flixel.tweens.FlxEase;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 import jp_2dgames.game.util.DirUtil;
 import jp_2dgames.game.event.EventNpc;
 import jp_2dgames.game.util.Key;
@@ -38,7 +38,7 @@ class StaffrollState extends FlxState {
     var sprGirl = new FlxSprite(FlxG.width, 0, "assets/images/result/girl.png");
     sprGirl.x = FlxG.width-sprGirl.width-80;
     this.add(sprGirl);
-    FlxTween.color(sprGirl, 1, FlxColor.BLACK, FlxColor.CHARCOAL, 1, 1, {ease:FlxEase.sineIn});
+    FlxTween.color(sprGirl, 1, FlxColor.BLACK, FlxColor.BLACK,  {ease:FlxEase.sineIn});
 
     _npcs = new Array<EventNpc>();
     // プレイヤー表示
@@ -56,7 +56,7 @@ class StaffrollState extends FlxState {
       var cat = new EventNpc();
       cat.revive();
       cat.setHit(false);
-      var px:Int = -12 * i - 36 + FlxRandom.intRanged(0, 8);
+      var px:Int = -12 * i - 36 + FlxG.random.int(0, 8);
       var dx:Int = -px + 2 + i;
       cat.init("cat", px, 11, Dir.Right);
       cat.requestMove(Dir.Right, dx);
@@ -93,7 +93,7 @@ class StaffrollState extends FlxState {
     this.add(txt);
     // 生成カウンタアップ
     _cntText++;
-    FlxTween.tween(txt, {y:-24}, 12, {ease:function(t:Float) { return t; }, complete:function(tween:FlxTween) {
+    FlxTween.tween(txt, {y:-24}, 12, {ease:function(t:Float) { return t; }, onComplete:function(tween:FlxTween) {
       // 生成カウンタを下げる
       _cntText--;
       this.remove(txt);
@@ -101,7 +101,7 @@ class StaffrollState extends FlxState {
     _idx++;
     if(_csv.hasId(_idx)) {
       // テキストデータがあれば再帰
-      new FlxTimer(1, _appearText);
+      new FlxTimer().start(1, _appearText);
     }
     else {
       // おしまい
@@ -126,8 +126,9 @@ class StaffrollState extends FlxState {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
     if(_cntText <= 0 || Key.press.A) {
       // おしまい

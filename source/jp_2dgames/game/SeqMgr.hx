@@ -27,7 +27,7 @@ import jp_2dgames.game.actor.Player;
 import jp_2dgames.game.actor.Actor;
 import jp_2dgames.game.actor.Actor.Action;
 import flixel.FlxG;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 /**
  * 状態

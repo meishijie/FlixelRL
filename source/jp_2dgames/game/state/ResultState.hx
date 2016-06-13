@@ -4,9 +4,9 @@ import jp_2dgames.game.util.BgWrap;
 import jp_2dgames.lib.Snd;
 import flixel.addons.effects.FlxTrail;
 import flash.display.BlendMode;
-import flixel.util.FlxAngle;
-import flixel.group.FlxTypedGroup;
-import flixel.util.FlxRandom;
+import flixel.math.FlxAngle;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxRandom;
 import flixel.util.FlxTimer;
 import jp_2dgames.game.util.Key;
 import jp_2dgames.game.util.CalcScore;
@@ -43,23 +43,24 @@ private class Kira extends FlxSprite {
   public function init(X:Float, Y:Float):Void {
     x = X;
     y = Y;
-    var sc = FlxRandom.floatRanged(0.2, 1);
+    var sc = FlxG.random.float(0.2, 1);
     scale.set(sc, sc);
-    var deg = FlxRandom.floatRanged(70, 110);
-    var speed = FlxRandom.floatRanged(100, 400);
+    var deg = FlxG.random.float(70, 110);
+    var speed = FlxG.random.float(100, 400);
     velocity.x = speed * Math.cos(deg * FlxAngle.TO_RAD);
     velocity.y = speed * -Math.sin(deg * FlxAngle.TO_RAD);
     acceleration.y = 100;
-    angularVelocity = FlxRandom.floatRanged(30, 100);
+    angularVelocity = FlxG.random.float(30, 100);
     angularDrag = 0.9;
 
-    alpha = FlxRandom.floatRanged(0.3, 0.8);
+    alpha = FlxG.random.float(0.3, 0.8);
 
-    _timer = FlxRandom.intRanged(90, 150);
+    _timer = FlxG.random.int(90, 150);
   }
 
-  override public function update():Void {
-    super.update();
+override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
     _timer--;
     visible = true;
     if(_timer < 30 && (_timer%30)%4 >= 2) {
@@ -122,14 +123,12 @@ class ResultState extends FlxState {
 
   private var _tEye:Int = 0;
 
-  // 状態
+ 
   private var _state:State = State.Wait;
-
-  /**
-   * 生成
-   **/
-  override public function create():Void {
-    super.create();
+ 
+ 
+override public function create():Void
+	{
 
     // 背景
     this.add(new BgWrap(true));
@@ -138,7 +137,7 @@ class ResultState extends FlxState {
     var px = BASE_X;
     var py = BASE_Y;
     _txtCaption = new FlxText(px-16, py, 480, "GAME RANKING", FONT_SIZE_BIG);
-    _txtCaption.setBorderStyle(FlxText.BORDER_OUTLINE, FlxColor.GOLDENROD, 4);
+    _txtCaption.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.YELLOW, 4);
 
     this.add(_txtCaption);
 
@@ -197,9 +196,9 @@ class ResultState extends FlxState {
         var px2 = NEWSCORE_X;
         var py2 = py + NEWSCORE_OFS_Y;
         var txtNewScore = new FlxText(px2, py2, SCORE_WIDTH, "NEW!", FONT_SIZE_SCORE);
-        txtNewScore.setBorderStyle(FlxText.BORDER_OUTLINE, FlxColor.WHITE, 2);
+        txtNewScore.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.WHITE, 2);
 
-        FlxTween.color(txtNewScore, 1, FlxColor.RED, FlxColor.GOLDENROD, 1, 1, {ease:FlxEase.expoInOut, type:FlxTween.PINGPONG});
+        FlxTween.color(txtNewScore, 1, FlxColor.RED, FlxColor.YELLOW, {ease:FlxEase.expoInOut, type:FlxTween.PINGPONG});
 
         _txtList.add(txtNewScore);
       }
@@ -236,7 +235,7 @@ class ResultState extends FlxState {
     FlxTween.tween(sprGirl, {x:girlX}, 1, {ease:FlxEase.expoOut});
     _girl = sprGirl;
 
-    new FlxTimer(1.5, function(timer:FlxTimer) {
+    new FlxTimer().start(1.5, function(timer:FlxTimer) {
       // メイン処理へ
       Snd.playMusic("result");
       _state = State.Main;
@@ -264,9 +263,7 @@ class ResultState extends FlxState {
 
   }
 
-  /**
-   * 破棄
-   **/
+ 
   override public function destroy():Void {
     Kira.parent = null;
 
@@ -276,23 +273,23 @@ class ResultState extends FlxState {
   /**
    * 更新
    **/
-  override public function update():Void {
-    super.update();
-
+  override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
     switch(_state) {
       case State.Wait:
         // ちょっと待つ
       case State.Main:
 
         // キラキラエフェクト出現
-        if(FlxRandom.chanceRoll(10)) {
-          var px = FlxRandom.floatRanged(FlxG.width/2, FlxG.width/2+256);
-          var py = FlxRandom.floatRanged(FlxG.height/3, FlxG.height/3+128);
+        if(FlxG.random.bool(10)) {
+          var px = FlxG.random.float(FlxG.width/2, FlxG.width/2+256);
+          var py = FlxG.random.float(FlxG.height/3, FlxG.height/3+128);
           Kira.start(px, py);
         }
 
         // 目ぱち更新
-        _tEye += FlxRandom.intRanged(1, 5);
+        _tEye += FlxG.random.int(1, 5);
         _eye.visible = false;
         _eye2.visible = false;
         if(_tEye%1000 < 16) {

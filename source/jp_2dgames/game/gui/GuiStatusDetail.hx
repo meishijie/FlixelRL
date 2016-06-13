@@ -151,19 +151,20 @@ class GuiStatusDetail extends FlxSpriteGroup {
     txt.text += _getDiffString(v);
     if(v > 0) {
       // パラメータ増加
-      txt.color = FlxColor.MAUVE;
+      txt.color = FlxColor.MAGENTA;
     }
     else if(v < 0) {
       // パラメータ減少
-      txt.color = FlxColor.AQUAMARINE;
+      txt.color = FlxColor.GREEN;
     }
   }
 
   /**
    * 更新
    **/
-  override public function update() {
-    super.update();
+override public function update(elapsed:Float):Void
+  {
+    super.update(elapsed);
   }
 
   /**
