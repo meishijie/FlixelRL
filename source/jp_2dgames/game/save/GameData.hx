@@ -267,7 +267,7 @@ class GameData {
     data += '&score=${score}';
     data += '&floor=${floor}';
     data += '&death=${death}';
-    data += '&key=${key}';
+   // data += '&key=${key}';
     data += '&playtime=${playtime}';
     data += '&lv=${lv}';
     data += '&weapon=${weapon}';

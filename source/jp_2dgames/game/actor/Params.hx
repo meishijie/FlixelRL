@@ -12,7 +12,7 @@ class Params {
   public var hpmax:Int   = 0; // 最大HP
   public var str:Int     = 0; // 力
   public var vit:Int     = 0; // 体力
-  public var food:Int    = 10000; // 満腹度(x100)
+  public var food:Int    = 100; // 満腹度(x100)
   public var foodmax:Int = 10000; // 最大満腹度(x100)
   public var badstatus:String = "none"; // バッドステータス
   public var badstatus_turn:Int = 0; // バッドステータスが有効なターン数

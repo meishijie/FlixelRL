@@ -9,7 +9,7 @@ class PlayLog {
   private static inline var DATA_NAME = "PLAYLOG";
 
   // ログデータ
-  private static var _logs:Array<PlayLogData> = null;
+  private static var _logs:Array<PlayLogData> = [];
 
   /**
    * ログデータを取得する

@@ -16,5 +16,49 @@
     <orderEntry type="jdk" jdkName="Haxe 3.2.1" jdkType="Haxe toolkit" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="1,8,6" level="project" />
+    <orderEntry type="module-library">
+      <library name="haxelib|C:/HaxeToolkit/haxe/lib/openfl/3,6,1">
+        <CLASSES>
+          <root url="file://C:/HaxeToolkit/haxe/lib/openfl/3,6,1" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://C:/HaxeToolkit/haxe/lib/openfl/3,6,1" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="haxelib|C:/HaxeToolkit/haxe/lib/flixel/4,0,1">
+        <CLASSES>
+          <root url="file://C:/HaxeToolkit/haxe/lib/flixel/4,0,1" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://C:/HaxeToolkit/haxe/lib/flixel/4,0,1" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="haxelib|C:/HaxeToolkit/haxe/lib/lime/2,9,1">
+        <CLASSES>
+          <root url="file://C:/HaxeToolkit/haxe/lib/lime/2,9,1" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://C:/HaxeToolkit/haxe/lib/lime/2,9,1" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="haxelib|C:/HaxeToolkit/haxe/lib/flixel-addons/2,0,0">
+        <CLASSES>
+          <root url="file://C:/HaxeToolkit/haxe/lib/flixel-addons/2,0,0" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://C:/HaxeToolkit/haxe/lib/flixel-addons/2,0,0" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

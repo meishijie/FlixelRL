@@ -477,14 +477,14 @@ override public function update(elapsed:Float):Void
 
       case State.Main:
         if(Key.press.A) {
-          if(Save.isContinue()) {
+          /*if(Save.isContinue()) {
             // セーブデータがあればCONTINUE
             _startContinue();
           }
-          else {
+          else {*/
             // そうでなければNEW GAME
             _startNewGame();
-          }
+          /*}*/
         }
     }
 
