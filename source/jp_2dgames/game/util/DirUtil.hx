@@ -125,6 +125,7 @@ class DirUtil {
 	 **/
   public static function getInputDirection():Dir {
     if(Key.on.LEFT) {
+      trace("true");
       return Dir.Left;
     }
     else if(Key.on.RIGHT) {

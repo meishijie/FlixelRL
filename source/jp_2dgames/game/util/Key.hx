@@ -1,5 +1,6 @@
 package jp_2dgames.game.util;
 
+import jp_2dgames.game.gui.GuiKey;
 import flixel.input.keyboard.FlxKey;
 import flixel.input.keyboard.FlxKeyList;
 import flixel.FlxG;
@@ -13,7 +14,12 @@ class KeyOn {
     if(FlxG.keys.pressed.LEFT) {
       return true;
     }
-    if(Pad.on(Pad.LEFT)) {
+    //if(Pad.on(Pad.LEFT)) {
+    //  return true;
+    //}
+    if(GuiKey.leftUp == true){
+
+      trace(GuiKey.leftUp);
       return true;
     }
     return false;
@@ -27,6 +33,10 @@ class KeyOn {
     if(Pad.on(Pad.RIGHT)) {
       return true;
     }
+    if(GuiKey.rightUp == true){
+
+      return true;
+    }
     return false;
   }
   public var UP(get, never):Bool;
@@ -38,6 +48,11 @@ class KeyOn {
     if(Pad.on(Pad.UP)) {
       return true;
     }
+
+    if(GuiKey.upUp == true){
+
+      return true;
+    }
     return false;
   }
   public var DOWN(get, never):Bool;
@@ -46,7 +61,11 @@ class KeyOn {
     if(FlxG.keys.pressed.DOWN) {
       return true;
     }
-    if(Pad.on(Pad.DOWN)) {
+    //if(Pad.on(Pad.DOWN)) {
+    //  return true;
+    //}
+    if(GuiKey.downUp == true){
+
       return true;
     }
     return false;
@@ -104,6 +123,7 @@ class KeyPress {
 
   inline function get_LEFT() {
     if(FlxG.keys.justPressed.LEFT) {
+
       return true;
     }
     if(Pad.press(Pad.LEFT)) {
