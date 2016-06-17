@@ -31,6 +31,8 @@ class GuiKey extends FlxSpriteGroup
 		bg1.y -= 50;
 		bg1.buttonA.onUp.callback = btnAUp;
 		bg1.buttonB.onUp.callback = btnBUp;
+		bg1.buttonA.onDown.callback = btnADown;
+		bg1.buttonB.onDown.callback = btnBDown;
 		bg1.buttonUp.onUp.callback = btnUpUp;
 		bg1.buttonUp.onDown.callback = btnUpDown;
 		bg1.buttonDown.onUp.callback = btnDownUp;
@@ -42,12 +44,22 @@ class GuiKey extends FlxSpriteGroup
 	}
 
 	function btnAUp():Void{
+		aUp = false;
+
+	}
+	
+	function btnADown():Void{
 		aUp = true;
 
 	}
 
 	function btnBUp():Void{
+		bUp = false;
+
+	}
+	function btnBDown():Void{
 		bUp = true;
+		
 
 	}
 	function btnUpUp():Void{

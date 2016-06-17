@@ -79,6 +79,10 @@ class KeyOn {
     if(Pad.on(Pad.A)) {
       return true;
     }
+	/*if(GuiKey.aUp == true){
+
+      return true;
+    }*/
     return false;
   }
   public var B(get, never):Bool;
@@ -90,6 +94,10 @@ class KeyOn {
     if(Pad.on(Pad.B)) {
       return true;
     }
+	/*if(GuiKey.bUp == true){
+
+      return true;
+    }*/
     return false;
   }
   public var X(get, never):Bool;
@@ -101,6 +109,10 @@ class KeyOn {
     if(Pad.on(Pad.X)) {
       return true;
     }
+	/*if(GuiKey.aUp == true){
+
+      return true;
+    }*/
     return false;
   }
   public var Y(get, never):Bool;
@@ -112,6 +124,10 @@ class KeyOn {
     if(Pad.on(Pad.Y)) {
       return true;
     }
+	/*if(GuiKey.bUp == true){
+
+      return true;
+    }*/
     return false;
   }
 }
@@ -129,6 +145,11 @@ class KeyPress {
     if(Pad.press(Pad.LEFT)) {
       return true;
     }
+	
+	if(GuiKey.bg1.buttonLeft.justReleased){
+		return true;
+	}
+	
     return false;
   }
   public var RIGHT(get, never):Bool;
@@ -140,6 +161,9 @@ class KeyPress {
     if(Pad.press(Pad.RIGHT)) {
       return true;
     }
+	if(GuiKey.bg1.buttonRight.justReleased){
+		return true;
+	}
     return false;
   }
   public var UP(get, never):Bool;
@@ -151,6 +175,9 @@ class KeyPress {
     if(Pad.press(Pad.UP)) {
       return true;
     }
+	if(GuiKey.bg1.buttonUp.justReleased){
+		return true;
+	}
     return false;
   }
   public var DOWN(get, never):Bool;
@@ -162,6 +189,11 @@ class KeyPress {
     if(Pad.press(Pad.DOWN)) {
       return true;
     }
+	
+	if(GuiKey.bg1.buttonDown.justReleased){
+		return true;
+	}
+	
     return false;
   }
   public var A(get, never):Bool;
@@ -224,6 +256,14 @@ class Key {
     if(k.check(FlxKey.A)) {
       return true;
     }
+	if(GuiKey.bg1 != null){
+		if(GuiKey.bg1.buttonA.justReleased){
+			return true;
+		}
+	}
+	/*if(GuiKey.bg1.buttonA.justReleased){
+		return true;
+	}*/
     return false;
   }
 
@@ -234,6 +274,13 @@ class Key {
     if(k.check(FlxKey.X)) {
       return true;
     }
+	if(GuiKey.bg1.buttonB.justReleased){
+		return true;
+	}
+	/*if(GuiKey.bUp == true){
+	  GuiKey.bUp = false;
+      return true;
+    }*/
     return false;
   }
 
