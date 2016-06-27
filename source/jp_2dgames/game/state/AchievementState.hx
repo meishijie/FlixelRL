@@ -246,24 +246,24 @@ override public function update(elapsed:Float):Void
       }
     }
 
-    if(Key.press.LEFT) {
+   /* if(Key.press.LEFT) {
       // ページ戻る
       _changePage(-1);
     }
     else if(Key.press.RIGHT) {
       // ページ進める
       _changePage(1);
-    }
+    }*/
 
-    if(Key.press.A || Key.press.B) {
+   /* if(Key.press.A || Key.press.B) {
       // Statトップ画面に戻る
       FlxG.switchState(new StatsState());
     }
-
-#if neko
+*/
+/*#if neko
     if(FlxG.keys.justPressed.ESCAPE) {
       throw "Terminate.";
     }
-#end
+#end*/
   }
 }

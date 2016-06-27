@@ -10,12 +10,12 @@ import flixel.FlxG;
  */
 class Reg {
   // フォントのパス
-  public static inline var PATH_FONT = "assets/font/PixelMplus10-Regular.ttf";
+  public static inline var PATH_FONT = "assets/font/fangzhengxiangsu12.ttf";
   // スプライトフォント
   public static inline var PATH_SPR_FONT = "assets/font/font16x16.png";
 
   // フォントサイズ
-  public static inline var FONT_SIZE = 20;
+  public static inline var FONT_SIZE = 12;
   public static inline var FONT_SIZE_S = 16;
 
   // UI領域
